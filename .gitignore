@@ -23,5 +23,8 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
+# Executables
+*.exe
+
 # Input files
 *.txt
