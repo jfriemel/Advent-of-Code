@@ -26,6 +26,7 @@ cabal.project.local~
 # Executables
 *.exe
 *.sh
+*.bat
 
 # Build
 /build*
