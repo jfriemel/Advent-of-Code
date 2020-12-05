@@ -25,6 +25,10 @@ cabal.project.local~
 
 # Executables
 *.exe
+*.sh
+
+# Build
+/build*
 
 # Input files
 *.txt
