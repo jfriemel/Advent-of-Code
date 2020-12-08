@@ -16,9 +16,9 @@ run file = do
   putStrLn $ "Result after abortion: " ++ show (execute 0 0 inputList []) ++ "."
 
 execute :: Int -> Int -> [(String, Int)] -> [Int] -> Int
-execute c acc code prevc
-  | c `elem` prevc = acc
-  | instr == "jmp" = execute (c+val) acc       code (c:prevc)
-  | instr == "acc" = execute (c+1)   (acc+val) code (c:prevc)
-  | instr == "nop" = execute (c+1)   acc       code (c:prevc)
-     where (instr,val) = code !! c
+execute ip acc code previp
+  | ip `elem` previp = acc
+  | instr == "jmp"   = execute (ip+val) acc       code (ip:previp)
+  | instr == "acc"   = execute (ip+1)   (acc+val) code (ip:previp)
+  | instr == "nop"   = execute (ip+1)   acc       code (ip:previp)
+  where (instr, val) = code !! ip
