@@ -21,4 +21,4 @@ countYes ((x:xs):ys) = countYesGroup xs x + countYes ys
 
 countYesGroup :: [String] -> String -> Int
 countYesGroup []     ys = length ys
-countYesGroup (x:xs) ys = countYesGroup xs (intersect x ys)
+countYesGroup (x:xs) ys = countYesGroup xs (x `intersect` ys)

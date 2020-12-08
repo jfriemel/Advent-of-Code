@@ -13,4 +13,4 @@ run file = do
 
 countTrees :: Int -> (Int, Int) -> [String] -> Int
 countTrees _   _     []     = 0
-countTrees pos (x,y) (z:zs) = (fromEnum $ z !! pos == '#') + countTrees ((pos+x) `mod` (length z)) (x,y) (drop (y-1) zs)
+countTrees pos (x,y) (z:zs) = fromEnum (z !! pos == '#') + countTrees ((pos+x) `mod` length z) (x,y) (drop (y-1) zs)

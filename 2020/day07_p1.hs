@@ -23,19 +23,19 @@ countContainments bag iter mp = length $ nub $ tail $ findContainments bag iter 
 
 findContainments :: String -> String -> Map.Map String [(Int, String)] -> [String]
 findContainments bag iter mp = case Map.lookup iter mp of
-                                 Just xs -> iter : concat (map (\(_,b) -> findContainments bag b mp) xs)
+                                 Just xs -> iter : concatMap (\(_,b) -> findContainments bag b mp) xs
                                  Nothing -> [iter]
 
 revBagMap :: [String] -> Map.Map String [(Int, String)]
-revBagMap xs = Map.fromListWith (++) $ reverseList $ map simplifyLine $ filter (\str -> not (isSuffixOf "no other bags." str)) xs
+revBagMap xs = Map.fromListWith (++) $ reverseList $ map simplifyLine $ filter (not . isSuffixOf "no other bags.") xs
 
 reverseList :: [(String, [(Int, String)])] -> [(String, [(Int, String)])]
-reverseList [] = []
-reverseList ((bag,[]):bs)         = reverseList bs
-reverseList ((bag,((n,x):xs)):bs) = (x,[(n,bag)]) : reverseList ((bag,xs):bs)
+reverseList []                   = []
+reverseList ((bag, []):bs)       = reverseList bs
+reverseList ((bag, (n,x):xs):bs) = (x, [(n,bag)]) : reverseList ((bag,xs):bs)
 
 simplifyLine :: String -> (String, [(Int, String)])
-simplifyLine str = (a,map (\(x:_:ys) -> (read [x],ys)) (splitOn ", " b))
+simplifyLine str = (a, map (\(x:_:ys) -> (read [x], ys)) (splitOn ", " b))
   where [a,b] = splitOn " contain " $ replaceStr " bag" "" $ replaceStr " bags" "" $ init str
 
 replaceStr :: String -> String -> String -> String

@@ -15,7 +15,7 @@ run :: String -> IO ()
 run file = do
   input <- readFile file
   let inputList = lines input
-  putStrLn $ "Number of bags the 'shiny gold' bag needs to contain: " ++ show ((numberOfBags "shiny gold" $ bagMap inputList) - 1) ++ "."
+  putStrLn $ "Number of bags the 'shiny gold' bag needs to contain: " ++ show (numberOfBags "shiny gold" (bagMap inputList) - 1) ++ "."
 
 numberOfBags :: String -> Map.Map String [(Int, String)] -> Int
 numberOfBags bag mp = case Map.lookup bag mp of
@@ -23,7 +23,7 @@ numberOfBags bag mp = case Map.lookup bag mp of
                         Nothing -> 1
 
 bagMap :: [String] -> Map.Map String [(Int, String)]
-bagMap = Map.fromList . map simplifyLine . filter (\str -> not (isSuffixOf "no other bags." str))
+bagMap = Map.fromList . map simplifyLine . filter (not . isSuffixOf "no other bags.")
 
 simplifyLine :: String -> (String, [(Int, String)])
 simplifyLine str = (a,map (\(x:_:ys) -> (read [x],ys)) (splitOn ", " b))

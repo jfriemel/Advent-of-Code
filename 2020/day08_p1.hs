@@ -1,5 +1,4 @@
 import Data.List ((\\))
-import Data.List.Split (splitOn)
 import System.Environment (getArgs)
 
 {- Advent of Code 2020 - Day 8 - Puzzle 1 -}
@@ -12,7 +11,7 @@ main = do
 run :: String -> IO ()
 run file = do
   input <- readFile file
-  let inputList = map (\xs -> (\[a,b] -> (a,read (b \\ "+"))) (splitOn " " xs)) $ lines input
+  let inputList = map ((\[a,b] -> (a, read (b \\ "+"))) . words) $ lines input
   putStrLn $ "Result after abortion: " ++ show (execute 0 0 inputList []) ++ "."
 
 execute :: Int -> Int -> [(String, Int)] -> [Int] -> Int

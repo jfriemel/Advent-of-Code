@@ -16,5 +16,4 @@ run file = do
   putStrLn $ "Number of 'yes': " ++ show (countYes inputList) ++ "."
 
 countYes :: [String] -> Int
-countYes []     = 0
-countYes (x:xs) = (length . nub) x + countYes xs
+countYes = foldr ((+) . (length . nub)) 0
