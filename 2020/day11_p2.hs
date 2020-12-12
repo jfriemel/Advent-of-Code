@@ -42,7 +42,7 @@ getNeighbors grid x y = filter (=='#') [getNearest grid (x+dx) (y+dy) (dx,dy) | 
 
 getNearest :: V.Vector (V.Vector Char) -> Int -> Int -> (Int, Int) -> Char
 getNearest grid x y (dx,dy)
-  | x < 0 || y < 0 || x == V.length (grid V.! 0) || y == V.length grid
+  | x < 0 || y < 0 || x == V.length (V.head grid) || y == V.length grid
       = '.'
   | val /= '.'
       = val
