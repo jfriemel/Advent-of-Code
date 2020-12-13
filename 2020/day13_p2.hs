@@ -12,11 +12,8 @@ run :: String -> IO ()
 run file = do
   input <- readFile file
   let inputList = splitOn "," $ lines input !! 1
-  let congr = [(fromIntegral (-a) `mod` p, p) | a <- [0 .. length inputList - 1], let ps = inputList !! a, ps /= "x", let p = read ps]
+  let congr = [(fromIntegral (-a), read p) | a <- [0 .. length inputList - 1], let p = inputList !! a, p /= "x"]
   putStrLn $ "Gold coin timestamp: " ++ show (chineseRemainder congr) ++ "."
-
-departure :: (Integral a) => a -> a -> (a, a)
-departure me id = (\xs -> (id, head xs)) $ filter (>= me) [id * x | x <- [1 ..]]
 
 chineseRemainder :: (Integral a) => [(a, a)] -> a
 chineseRemainder [(a,p)]              = a `mod` p
