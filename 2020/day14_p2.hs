@@ -7,11 +7,6 @@ import System.Environment (getArgs)
 
 {- Advent of Code 2020 - Day 14 - Puzzle 2 -}
 
-{- > stack ghci day_14_p2_jfriemel.hs
- - > run "day_14_input_jfriemel.txt"
- -
- - Erwartetes Ergebnis: 3706820676200      -}
-
 main :: IO ()
 main = do
   args <- getArgs
