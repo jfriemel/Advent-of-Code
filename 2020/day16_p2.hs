@@ -1,5 +1,5 @@
 import Data.Function      (on)
-import Data.List          ((\\), sortBy)
+import Data.List          ((\\), sortBy, transpose)
 import Data.List.Split    (splitOn)
 import System.Environment (getArgs)
 
@@ -52,7 +52,3 @@ findInvalid rules []     = []
 findInvalid rules (x:xs)
   | any (\f -> f x) rules =     findInvalid rules xs
   | otherwise             = x : findInvalid rules xs
-
-transpose :: [[a]] -> [[a]]
-transpose ([]:_) = []
-transpose xs     = map head xs : transpose (map tail xs)
