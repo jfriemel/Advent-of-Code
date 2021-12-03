@@ -247,6 +247,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Windows executables
+*.bat
+*.exe
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,maven,windows,macos,linux,java,haskell
 
 ### Advent of Code ###
