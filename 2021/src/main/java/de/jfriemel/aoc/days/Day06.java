@@ -2,10 +2,8 @@ package de.jfriemel.aoc.days;
 
 import de.jfriemel.aoc.Day;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 public class Day06 implements Day {
@@ -33,14 +31,9 @@ public class Day06 implements Day {
     }
 
     private long[] simulateOnce(long[] previous) {
-        long[] next = new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-        for (int i = 0; i < previous.length; i++) {
-            if (i > 0) {
-                next[i - 1] += previous[i];
-            } else {
-                next[6] += previous[0];
-                next[8] += previous[0];
-            }
+        long[] next = new long[]{0, 0, 0, 0, 0, 0, previous[0], 0, previous[0]};
+        for (int i = 1; i < previous.length; i++) {
+            next[i - 1] += previous[i];
         }
         return next;
     }
