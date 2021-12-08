@@ -16,9 +16,10 @@ public class Day07 implements Day {
     @Override
     public String part2(List<String> input) {
         List<Integer> crabList = Arrays.stream(input.get(0).split(",")).map(Integer::parseInt).sorted().toList();
-        double mean = crabList.stream().mapToDouble(c -> c).average().orElseThrow();
-        return Integer.toString(Math.min(getTotalCost(crabList, (int) Math.floor(mean), true),
-                                         getTotalCost(crabList, (int) Math.ceil(mean), true)));
+        int mean = (int) Math.round(crabList.stream().mapToDouble(c -> c).average().orElseThrow());
+        return Integer.toString(Math.min(getTotalCost(crabList, mean - 1, true),
+                                         getTotalCost(crabList, mean, true)),
+                                         getTotalCost(crabList, mean + 1, true));
     }
 
     private int getTotalCost(List<Integer> crabList, int alignValue, boolean expensive) {
