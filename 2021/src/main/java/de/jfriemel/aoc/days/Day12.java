@@ -34,22 +34,26 @@ public class Day12 implements Day {
         if (current.equals(new Vertex("end"))) {
             if (twice == null || visited.contains(twice))
                 pathCount++;
-        } else {
-            if (!current.isBig()) {
-                if (visited.contains(current)) return pathCount;
-                if (twice == null && !current.equals(new Vertex("start"))) {
-                    for (final Vertex next : G.getAdjacencies(current)) {
-                        List<Vertex> visitedNext = new ArrayList<>(visited);
-                        pathCount = traverse(G, visitedNext, next, pathCount, current);
-                    }
-                }
-                visited.add(current);
-            }
-            for (final Vertex next : G.getAdjacencies(current)) {
-                List<Vertex> visitedNext = new ArrayList<>(visited);
-                pathCount = traverse(G, visitedNext, next, pathCount, twice);
-            }
+            return pathCount;
         }
+
+        if (!current.isBig()) {
+            if (visited.contains(current))
+                return pathCount;
+            if (twice == null && !current.equals(new Vertex("start"))) {
+                for (final Vertex next : G.getAdjacencies(current)) {
+                    final List<Vertex> visitedNext = new ArrayList<>(visited);
+                    pathCount = traverse(G, visitedNext, next, pathCount, current);
+                }
+            }
+            visited.add(current);
+        }
+
+        for (final Vertex next : G.getAdjacencies(current)) {
+            List<Vertex> visitedNext = new ArrayList<>(visited);
+            pathCount = traverse(G, visitedNext, next, pathCount, twice);
+        }
+
         return pathCount;
     }
 
