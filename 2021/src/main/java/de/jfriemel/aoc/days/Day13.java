@@ -33,8 +33,10 @@ public class Day13 implements Day {
             commands = new String[]{commands[0]};
         int xBound = 2000;
         int yBound = 2000;
+
         for (String command : commands) {
             command = command.substring(11);
+
             if (command.charAt(0) == 'x') {
                 final int prevBound = xBound;
                 xBound = Integer.parseInt(command.split("=")[1]);
@@ -62,7 +64,7 @@ public class Day13 implements Day {
                 if (grid[x][y] && once)
                     sum++;
                 else
-                    output.append(grid[x][y] ? '█' : ' ');
+                    output.append(grid[x][y] ? '\u2588' : ' ');
             }
         }
 

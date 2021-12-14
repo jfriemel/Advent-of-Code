@@ -45,11 +45,11 @@ public class Day13Test {
         String result = new Day13().part2(INPUT);
         assertEquals("""
                 
-                █████
-                █   █
-                █   █
-                █   █
-                █████
+                \u2588\u2588\u2588\u2588\u2588
+                \u2588   \u2588
+                \u2588   \u2588
+                \u2588   \u2588
+                \u2588\u2588\u2588\u2588\u2588
                     \s
                     \s""", result);
     }
