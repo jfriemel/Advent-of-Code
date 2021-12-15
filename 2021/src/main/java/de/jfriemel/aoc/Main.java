@@ -75,6 +75,8 @@ public class Main {
         DAYS.put(12, new Day12());
         DAYS.put(13, new Day13());
         DAYS.put(14, new Day14());
+        DAYS.put(15, new Day15());
+        DAYS.put(16, new Day16());
     }
 
 }
