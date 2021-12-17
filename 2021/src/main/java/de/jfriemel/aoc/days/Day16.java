@@ -14,7 +14,7 @@ public class Day16 implements Day {
 
     @Override
     public String part2(List<String> input) {
-        return Long.toString(evaluatePacket(parsePacket(input.get(0))));
+        return Long.toString(evaluatePacket(parsePacket(hexToBin(input.get(0)))));
     }
 
     private int addVersions(final Packet packet) {
@@ -34,40 +34,20 @@ public class Day16 implements Day {
         } else if (packet instanceof OperatorPacket) {
             final List<Packet> subPackets = ((OperatorPacket) packet).packetsContained;
             switch (packet.type) {
-                case 0: // sum
-                    for (final Packet subPacket : subPackets) {
-                        value += evaluatePacket(subPacket);
-                    }
-                    break;
-                case 1: // product
-                    value = 1L;
-                    for (final Packet subPacket : subPackets) {
-                        value *= evaluatePacket(subPacket);
-                    }
-                    break;
-                case 2: // minimum
-                    value = Long.MAX_VALUE;
-                    for (final Packet subPacket : subPackets) {
-                        final long eval = evaluatePacket(subPacket);
-                        if (eval < value)
-                            value = eval;
-                    }
-                    break;
-                case 3: // maximum
-                    for (final Packet subPacket : subPackets) {
-                        final long eval = evaluatePacket(subPacket);
-                        if (eval > value)
-                            value = eval;
-                    }
-                    break;
-                case 5: // greater than
-                    value = evaluatePacket(subPackets.get(0)) > evaluatePacket(subPackets.get(1)) ? 1L : 0L;
-                    break;
-                case 6: // less than
-                    value = evaluatePacket(subPackets.get(0)) < evaluatePacket(subPackets.get(1)) ? 1L : 0L;
-                    break;
-                case 7: // equal to
-                    value = evaluatePacket(subPackets.get(0)) == evaluatePacket(subPackets.get(1)) ? 1L : 0L;
+                // sum
+                case 0 -> value = subPackets.stream().map(this::evaluatePacket).reduce(0L, Long::sum);
+                // product
+                case 1 -> value = subPackets.stream().map(this::evaluatePacket).reduce(1L, (x, y) -> x * y);
+                // minimum
+                case 2 -> value = subPackets.stream().map(this::evaluatePacket).min(Long::compareTo).orElseThrow();
+                // maximum
+                case 3 -> value = subPackets.stream().map(this::evaluatePacket).max(Long::compareTo).orElseThrow();
+                // greater than
+                case 5 -> value = evaluatePacket(subPackets.get(0)) > evaluatePacket(subPackets.get(1)) ? 1L : 0L;
+                // less than
+                case 6 -> value = evaluatePacket(subPackets.get(0)) < evaluatePacket(subPackets.get(1)) ? 1L : 0L;
+                // equal to
+                case 7 -> value = evaluatePacket(subPackets.get(0)) == evaluatePacket(subPackets.get(1)) ? 1L : 0L;
             }
         }
         return value;
@@ -78,6 +58,7 @@ public class Day16 implements Day {
         byte type = (byte) binToDec(binary.substring(3,6));
 
         final Packet packet;
+        // Check whether the packet is a literal or an operator packet.
         if (type == 4) {
             packet = new LiteralPacket();
         } else {
@@ -87,12 +68,13 @@ public class Day16 implements Day {
         packet.type = type;
 
         binary = binary.substring(6);
-        packet.bitsUsed += 6;
-
         boolean last = false;
         StringBuilder literalBuilder = new StringBuilder();
+
         if (packet instanceof LiteralPacket) {
+            // Calculate the literal value in a loop.
             while (!last) {
+                // Repeat until a 0 is encountered.
                 if (binary.charAt(0) == '0')
                     last = true;
                 literalBuilder.append(binary, 1, 5);
@@ -102,21 +84,24 @@ public class Day16 implements Day {
             ((LiteralPacket) packet).literal = binToDec(literalBuilder.toString());
         } else {
             ((OperatorPacket) packet).lengthTypeID = binary.charAt(0) == '1';
-            binary = binary.substring(1);
-            packet.bitsUsed++;
 
+            // Parse length of bits or number of packets (depending on the length type ID).
+            // Keep the other value at Integer.MAX_VALUE to avoid unnecessary case distinction.
             if (((OperatorPacket) packet).lengthTypeID) {
-                ((OperatorPacket) packet).numberOfPackets = (int) binToDec(binary.substring(0, 11));
-                binary = binary.substring(11);
-                packet.bitsUsed += 11;
+                ((OperatorPacket) packet).numberOfPackets = (int) binToDec(binary.substring(1, 12));
+                binary = binary.substring(12);
+                packet.bitsUsed += 12;
             } else {
-                ((OperatorPacket) packet).length = (int) binToDec(binary.substring(0, 15));
-                binary = binary.substring(15);
-                packet.bitsUsed += 15;
+                ((OperatorPacket) packet).length = (int) binToDec(binary.substring(1, 16));
+                binary = binary.substring(16);
+                packet.bitsUsed += 16;
             }
 
             while (((OperatorPacket) packet).length > 0 && ((OperatorPacket) packet).numberOfPackets > 0) {
+                // Parse packets until the length of bits or the number of remaining packets is 0
                 Packet nextPacket = parsePacket(binary);
+
+                // Use nextPacket.bitsUsed to determine how far to jump in the bit sequence.
                 binary = binary.substring(nextPacket.bitsUsed);
                 packet.bitsUsed += (nextPacket.bitsUsed);
                 ((OperatorPacket) packet).packetsContained.add(nextPacket);
@@ -130,9 +115,11 @@ public class Day16 implements Day {
     }
 
     private String hexToBin(final String input) {
+        // Simple hexadecimal to binary converter method.
         final StringBuilder binaryBuilder = new StringBuilder();
         for (final char symbol : input.toCharArray()) {
             switch (symbol) {
+                // Advantage of switch: No need to worry about cutting off leading zeros.
                 case '0' -> binaryBuilder.append("0000");
                 case '1' -> binaryBuilder.append("0001");
                 case '2' -> binaryBuilder.append("0010");
@@ -155,6 +142,7 @@ public class Day16 implements Day {
     }
 
     private long binToDec(final String binary) {
+        // Simple binary to decimal converter method.
         long dec = 0;
         for (final char bit : binary.toCharArray()) {
             dec = dec * 2 + (bit == '1' ? 1 : 0);
@@ -167,7 +155,7 @@ public class Day16 implements Day {
 class Packet {
     byte version;
     byte type;
-    int bitsUsed = 0;
+    int bitsUsed = 6; // Keep track of the number of bits used so operator packets know how far to jump in the bit seq.
 }
 
 class LiteralPacket extends Packet {
@@ -176,7 +164,9 @@ class LiteralPacket extends Packet {
 
 class OperatorPacket extends Packet {
     boolean lengthTypeID;
+    // length and numberOfPackets are initially set to Integer.MAX_VALUE to avoid unnecessary case distinction when
+    // parsing the packets inside the operator packet (see above).
     int length = Integer.MAX_VALUE;
     int numberOfPackets = Integer.MAX_VALUE;
-    List<Packet> packetsContained = new ArrayList<>();
+    final List<Packet> packetsContained = new ArrayList<>();
 }

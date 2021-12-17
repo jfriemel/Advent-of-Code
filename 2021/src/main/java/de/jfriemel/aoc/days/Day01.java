@@ -23,7 +23,7 @@ public class Day01 implements Day {
 
     @Override
     public String part2(final List<String> input) {
-        int a = Integer.parseInt(input.get(0));;
+        int a = Integer.parseInt(input.get(0));
         int b = Integer.parseInt(input.get(1));
         int c;
         int previous = Integer.MAX_VALUE;

@@ -2,7 +2,6 @@ package de.jfriemel.aoc.days;
 
 import de.jfriemel.aoc.Day;
 
-import java.sql.Array;
 import java.util.*;
 
 public class Day15 implements Day {
