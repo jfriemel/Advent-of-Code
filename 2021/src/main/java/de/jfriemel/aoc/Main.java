@@ -61,15 +61,15 @@ public class Main {
     }
 
     private static void fillDaysMap() {
-        DAYS.put(1, new Day01());
-        DAYS.put(2, new Day02());
-        DAYS.put(3, new Day03());
-        DAYS.put(4, new Day04());
-        DAYS.put(5, new Day05());
-        DAYS.put(6, new Day06());
-        DAYS.put(7, new Day07());
-        DAYS.put(8, new Day08());
-        DAYS.put(9, new Day09());
+        DAYS.put(1,  new Day01());
+        DAYS.put(2,  new Day02());
+        DAYS.put(3,  new Day03());
+        DAYS.put(4,  new Day04());
+        DAYS.put(5,  new Day05());
+        DAYS.put(6,  new Day06());
+        DAYS.put(7,  new Day07());
+        DAYS.put(8,  new Day08());
+        DAYS.put(9,  new Day09());
         DAYS.put(10, new Day10());
         DAYS.put(11, new Day11());
         DAYS.put(12, new Day12());
@@ -78,6 +78,8 @@ public class Main {
         DAYS.put(15, new Day15());
         DAYS.put(16, new Day16());
         DAYS.put(17, new Day17());
+        DAYS.put(18, new Day18());
+        DAYS.put(19, new Day19());
     }
 
 }
