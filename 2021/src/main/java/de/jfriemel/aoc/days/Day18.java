@@ -26,6 +26,7 @@ class Snailfish {
 
     @Override
     public String toString() {
+        // Create a string for the snailfish. Used for tests and during debugging.
         if (value >= 0) {
             return Integer.toString(value);
         }

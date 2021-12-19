@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class Day18Test {
 
-    private static final Day18 DAY_18 = new Day18();
+    private static final Day18 DAY = new Day18();
 
     private static final String INPUT_STRING = """
             [[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
@@ -37,7 +37,7 @@ public class Day18Test {
             [[[9,[3,8]],[[0,9],6]],[[[3,7],[4,9]],3]]
             [[[[1,3],[5,3]],[[1,3],[8,7]]],[[[4,9],[6,9]],[[8,2],[7,3]]]]""";
         for (final String snailString : inputParse.split("\n")) {
-            assertEquals(snailString, DAY_18.parseSnailfish(snailString).toString());
+            assertEquals(snailString, DAY.parseSnailfish(snailString).toString());
         }
     }
 
@@ -53,21 +53,21 @@ public class Day18Test {
             [[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]=3488""";
         for (final String snailStringResult : inputStringMagnitude.split("\n")) {
             final String[] parts = snailStringResult.split("=");
-            final Snailfish snailfish = DAY_18.parseSnailfish(parts[0]);
+            final Snailfish snailfish = DAY.parseSnailfish(parts[0]);
             assertEquals(parts[0], snailfish.toString());
-            assertEquals(Long.parseLong(parts[1]), DAY_18.calcMagnitude(snailfish));
+            assertEquals(Long.parseLong(parts[1]), DAY.calcMagnitude(snailfish));
         }
     }
 
     @Test
     public void testSplit() {
-        Snailfish snailfish = DAY_18.parseSnailfish("[[[[0,7],4],[15,[0,13]]],[1,1]]");
+        Snailfish snailfish = DAY.parseSnailfish("[[[[0,7],4],[15,[0,13]]],[1,1]]");
         assertEquals("[[[[0,7],4],[15,[0,13]]],[1,1]]", snailfish.toString());
-        assertTrue(DAY_18.split(snailfish));
+        assertTrue(DAY.split(snailfish));
         assertEquals("[[[[0,7],4],[[7,8],[0,13]]],[1,1]]", snailfish.toString());
-        assertTrue(DAY_18.split(snailfish));
+        assertTrue(DAY.split(snailfish));
         assertEquals("[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]", snailfish.toString());
-        assertFalse(DAY_18.split(snailfish));
+        assertFalse(DAY.split(snailfish));
     }
 
     @Test
@@ -80,24 +80,24 @@ public class Day18Test {
                 """;
         for (final String snailStringResult : inputStringExplode.split("\n")) {
             final String[] parts = snailStringResult.split("=");
-            final Snailfish snailfish = DAY_18.parseSnailfish(parts[0]);
+            final Snailfish snailfish = DAY.parseSnailfish(parts[0]);
             assertEquals(parts[0], snailfish.toString());
-            DAY_18.explode(snailfish, 0, new LinkedList<>());
+            DAY.explode(snailfish, 0, new LinkedList<>());
             assertEquals(parts[1], snailfish.toString());
         }
     }
 
     @Test
     public void testAddReduce() {
-        final Snailfish snail1 = DAY_18.parseSnailfish("[[[[4,3],4],4],[7,[[8,4],9]]]");
-        final Snailfish snail2 = DAY_18.parseSnailfish("[1,1]");
-        final Snailfish snailfish = DAY_18.add(snail1, snail2);
+        final Snailfish snail1 = DAY.parseSnailfish("[[[[4,3],4],4],[7,[[8,4],9]]]");
+        final Snailfish snail2 = DAY.parseSnailfish("[1,1]");
+        final Snailfish snailfish = DAY.add(snail1, snail2);
 
         assertEquals("[[[[4,3],4],4],[7,[[8,4],9]]]", snail1.toString());
         assertEquals("[1,1]", snail2.toString());
         assertEquals("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]", snailfish.toString());
 
-        DAY_18.reduce(snailfish);
+        DAY.reduce(snailfish);
         assertEquals("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]", snailfish.toString());
     }
 
@@ -113,26 +113,26 @@ public class Day18Test {
                 [1,[[[9,3],9],[[9,0],[0,7]]]]
                 [[[5,[7,4]],7],1]
                 [[[[4,2],2],6],[8,7]]""";
-        Snailfish snailfish = DAY_18.parseSnailfish("[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]");
+        Snailfish snailfish = DAY.parseSnailfish("[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]");
         assertEquals("[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]", snailfish.toString());
 
         for (final String snailString : inputAddReduce.split("\n")) {
-            final Snailfish snail2 = DAY_18.parseSnailfish(snailString);
+            final Snailfish snail2 = DAY.parseSnailfish(snailString);
             assertEquals(snailString, snail2.toString());
-            snailfish = DAY_18.add(snailfish, snail2);
-            DAY_18.reduce(snailfish);
+            snailfish = DAY.add(snailfish, snail2);
+            DAY.reduce(snailfish);
         }
         assertEquals("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]", snailfish.toString());
     }
 
     @Test
     public void testPart1() {
-        assertEquals("4140", DAY_18.part1(INPUT));
+        assertEquals("4140", DAY.part1(INPUT));
     }
 
     @Test
     public void testPart2() {
-        assertEquals("3993", DAY_18.part2(INPUT));
+        assertEquals("3993", DAY.part2(INPUT));
     }
 
 }
