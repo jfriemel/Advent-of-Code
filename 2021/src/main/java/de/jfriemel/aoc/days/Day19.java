@@ -62,7 +62,7 @@ public class Day19 implements Day {
         //       to the set and remove the scanner's scan from the scans list.
         //       Once the scans list is empty, all beacons will have been added to the beacons set.
 
-        // We collect all of the scanner's positions (relative to scanner 0) in a list to be able to compute the maximum
+        // We collect all the scanner's positions (relative to scanner 0) in a list to be able to compute the maximum
         // distance between any two scanners for part 2.
         final List<Position> scannerDistances = new ArrayList<>();
 

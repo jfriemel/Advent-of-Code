@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Advent of Code 2021" />
         <module name="2021" />
+        <module name="aoc2021" />
       </profile>
     </annotationProcessing>
   </component>
