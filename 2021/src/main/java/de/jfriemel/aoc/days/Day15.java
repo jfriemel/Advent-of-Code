@@ -21,7 +21,7 @@ public class Day15 implements Day {
 
     private int findShortestPath(final List<String> input, final int factor) {
         final int[][] grid = getGrid(input, factor);
-        final Graph G = new Graph();
+        final Graph15 G = new Graph15();
 
         // Add each value in the grid as a node to the graph
         for (int i = 0; i < grid.length; i++) {
@@ -40,16 +40,16 @@ public class Day15 implements Day {
             }
         }
 
-        final Map<Vertex, Integer> pathLengthMap = new HashMap<>();
-        final Deque<Vertex> nodeStack = new LinkedList<>();
-        final Vertex start = G.getVertex("1,1");
+        final Map<Vertex15, Integer> pathLengthMap = new HashMap<>();
+        final Deque<Vertex15> nodeStack = new LinkedList<>();
+        final Vertex15 start = G.getVertex("1,1");
 
         pathLengthMap.put(start, 0);
         nodeStack.push(start);
 
         while (!nodeStack.isEmpty()) {
-            Vertex v = nodeStack.pollLast();
-            for (Vertex w : G.getAdjacencies(v)) {
+            Vertex15 v = nodeStack.pollLast();
+            for (Vertex15 w : G.getAdjacencies(v)) {
                 if (pathLengthMap.getOrDefault(w, INFINITY) > pathLengthMap.get(v) + w.getCost()) {
                     // If the path from v to w is better than all previous paths to w, choose the new path
                     pathLengthMap.put(w, pathLengthMap.get(v) + w.getCost());
@@ -86,63 +86,63 @@ public class Day15 implements Day {
         return grid;
     }
 
-    class Graph {
-        private final Map<Vertex, Set<Vertex>> adjacencies;
-        private final Map<String, Vertex> vertexLookup;
+}
 
-        Graph() {
-            adjacencies = new HashMap<>();
-            vertexLookup = new HashMap<>();
-        }
+class Graph15 {
+    private final Map<Vertex15, Set<Vertex15>> adjacencies;
+    private final Map<String, Vertex15> vertexLookup;
 
-        void addVertex(final String label, final int cost) {
-            Vertex vertex = new Vertex(label, cost);
-            adjacencies.computeIfAbsent(vertex, k -> new HashSet<>());
-            vertexLookup.put(label, vertex);
-        }
-
-        void addEdge(final String label1, final String label2) {
-            final Vertex v1 = vertexLookup.get(label1);
-            final Vertex v2 = vertexLookup.get(label2);
-            adjacencies.get(v1).add(v2);
-            adjacencies.get(v2).add(v1);
-        }
-
-        Vertex getVertex(final String label) {
-            return vertexLookup.get(label);
-        }
-
-        Set<Vertex> getAdjacencies(final Vertex v) {
-            return adjacencies.get(v);
-        }
+    Graph15() {
+        adjacencies = new HashMap<>();
+        vertexLookup = new HashMap<>();
     }
 
-    class Vertex {
-        private final String label;
-        private final int cost;
-
-        Vertex(final String label, final int cost) {
-            this.label = label;
-            this.cost = cost;
-        }
-
-        int getCost() {
-            return cost;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.label.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null || this.getClass() != obj.getClass())
-                return false;
-            return this.label.equals(((Vertex) obj).label);
-        }
+    void addVertex(final String label, final int cost) {
+        Vertex15 vertex = new Vertex15(label, cost);
+        adjacencies.computeIfAbsent(vertex, k -> new HashSet<>());
+        vertexLookup.put(label, vertex);
     }
 
+    void addEdge(final String label1, final String label2) {
+        final Vertex15 v1 = vertexLookup.get(label1);
+        final Vertex15 v2 = vertexLookup.get(label2);
+        adjacencies.get(v1).add(v2);
+        adjacencies.get(v2).add(v1);
+    }
+
+    Vertex15 getVertex(final String label) {
+        return vertexLookup.get(label);
+    }
+
+    Set<Vertex15> getAdjacencies(final Vertex15 v) {
+        return adjacencies.get(v);
+    }
+}
+
+class Vertex15 {
+    private final String label;
+    private final int cost;
+
+    Vertex15(final String label, final int cost) {
+        this.label = label;
+        this.cost = cost;
+    }
+
+    int getCost() {
+        return cost;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.label.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || this.getClass() != obj.getClass())
+            return false;
+        return this.label.equals(((Vertex15) obj).label);
+    }
 }

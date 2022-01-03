@@ -84,6 +84,8 @@ public class Main {
         DAYS.put(21, new Day21());
         DAYS.put(22, new Day22());
         DAYS.put(23, new Day23());
+        DAYS.put(24, new Day24());
+        DAYS.put(25, new Day25());
     }
 
 }
