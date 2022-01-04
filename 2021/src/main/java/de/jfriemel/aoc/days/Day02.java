@@ -11,12 +11,12 @@ public class Day02 implements Day {
         int x = 0;
         int y = 0;
         for (final String line : input) {
-            String[] command = line.split(" ");
-            int value = Integer.parseInt(command[1]);
+            final String[] command = line.split(" ");
+            final int value = Integer.parseInt(command[1]);
             switch (command[0]) {
                 case "forward" -> x += value;
-                case "down" -> y += value;
-                case "up" -> y -= value;
+                case "down"    -> y += value;
+                case "up"      -> y -= value;
             }
         }
         return Integer.toString(x * y);
@@ -28,15 +28,15 @@ public class Day02 implements Day {
         int y = 0;
         int aim = 0;
         for (final String line : input) {
-            String[] command = line.split(" ");
-            int value = Integer.parseInt(command[1]);
+            final String[] command = line.split(" ");
+            final int value = Integer.parseInt(command[1]);
             switch (command[0]) {
                 case "forward" -> {
                     x += value;
                     y += aim * value;
                 }
                 case "down" -> aim += value;
-                case "up" -> aim -= value;
+                case "up"   -> aim -= value;
             }
         }
         return Integer.toString(x * y);

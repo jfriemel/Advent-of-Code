@@ -20,9 +20,10 @@ public class Day14 implements Day {
     }
 
     private long countElements(final List<String> input, final int numRounds) {
+        // Idea: Keep track of pairs of elements instead of the whole string or individual elements.
         Map<String, Long> counts = new HashMap<>();
         final String word = input.get(0);
-        long[] letterCounts = new long[26];
+        final long[] letterCounts = new long[26];
         Arrays.fill(letterCounts, 0L);
 
         for (int i = 0; i < word.length() - 1; i++) {
@@ -34,7 +35,7 @@ public class Day14 implements Day {
         final List<String[]> rules = input.subList(2, input.size()).stream().map(l -> l.split(" -> ")).toList();
 
         for (int i = 0; i < numRounds; i++) {
-            Map<String, Long> newCounts = new HashMap<>();
+            final Map<String, Long> newCounts = new HashMap<>();
             for (final String[] rule : rules) {
                 String pair = rule[0];
                 newCounts.merge(pair.charAt(0) + rule[1], counts.getOrDefault(pair, 0L), Long::sum);

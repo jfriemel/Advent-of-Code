@@ -77,14 +77,14 @@ public class Day23 implements Day {
 class RoomState {
     /* Corridor and room indices (terrible visualization, I know...):
      * #####################
-     * #01 2 3 4 5 6 7 8 9X#
-     * ###0,0#1,0#2,0#3,0###
-     *   #0,1#1,1#2,1#3,1#
-     *   #0,2#1,2#2,2#3,2#
-     *   #0,3#1,3#2,3#3,3#
+     * #01 2 3 4 5 6 7 8 9X# <-- hallway
+     * ###0,0#1,0#2,0#3,0### <-- rooms
+     *   #0,1#1,1#2,1#3,1#   <-|
+     *   #0,2#1,2#2,2#3,2#   <-|
+     *   #0,3#1,3#2,3#3,3#   <-|
      *   #################   */
-    char[] hallway = new char[11];
-    char[][] rooms = new char[4][4];
+    final char[] hallway;
+    final char[][] rooms;
 
     // Keep track of the total cost to reach the current configuration from the initial RoomState.
     int totalCost;

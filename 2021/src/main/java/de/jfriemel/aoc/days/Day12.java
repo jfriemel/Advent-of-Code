@@ -20,17 +20,24 @@ public class Day12 implements Day {
     }
 
     private int countPaths(final List<String> input, final boolean allowTwice) {
+        // Creates the graph from the input and then uses the recursive traverse method to count the number of paths.
         final Graph12 G = new Graph12();
+
         for (final String line : input) {
-            String[] vertices = line.split("-");
+            final String[] vertices = line.split("-");
             G.addEdge(vertices[0], vertices[1]);
         }
+
         final Vertex12 twice = allowTwice ? null : new Vertex12("start");
         return traverse(G, new ArrayList<>(), new Vertex12("start"), 0, twice);
     }
 
     private int traverse(final Graph12 G, final List<Vertex12> visited, final Vertex12 current, int pathCount,
                          final Vertex12 twice) {
+        // Recursively traverses the graph to count the number of paths.
+        // The twice variable is used to allow a single vertex to be used twice. If the vertex is "start", we are in
+        // part 1 and no vertex can be used more than once.
+
         if (current.equals(new Vertex12("end"))) {
             if (twice == null || visited.contains(twice))
                 pathCount++;
@@ -40,17 +47,19 @@ public class Day12 implements Day {
         if (!current.isBig()) {
             if (visited.contains(current))
                 return pathCount;
+
             if (twice == null && !current.equals(new Vertex12("start"))) {
                 for (final Vertex12 next : G.getAdjacencies(current)) {
                     final List<Vertex12> visitedNext = new ArrayList<>(visited);
                     pathCount = traverse(G, visitedNext, next, pathCount, current);
                 }
             }
+
             visited.add(current);
         }
 
         for (final Vertex12 next : G.getAdjacencies(current)) {
-            List<Vertex12> visitedNext = new ArrayList<>(visited);
+            final List<Vertex12> visitedNext = new ArrayList<>(visited);
             pathCount = traverse(G, visitedNext, next, pathCount, twice);
         }
 

@@ -10,9 +10,9 @@ public class Day03 implements Day {
 
     @Override
     public String part1(List<String> input) {
-        int length = input.get(0).length();
-        int numLines = input.size();
-        int[] bitsSet = new int[length];
+        final int length = input.get(0).length();
+        final int numLines = input.size();
+        final int[] bitsSet = new int[length];
         Arrays.fill(bitsSet, 0);
 
         for (final String line : input) {
@@ -54,8 +54,8 @@ public class Day03 implements Day {
             bitPos++;
         }
 
-        String oxyString = oxyList.get(0);
-        String co2String = co2List.get(0);
+        final String oxyString = oxyList.get(0);
+        final String co2String = co2List.get(0);
         int oxy = 0;
         int co2 = 0;
         for (int i = 0; i < oxyString.length(); i++) {
@@ -66,9 +66,11 @@ public class Day03 implements Day {
         return Integer.toString(oxy * co2);
     }
 
-    private List<String> prune(List<String> input, int bitPos, boolean mostCommon) {
-        List<String> list0 = new ArrayList<>();
-        List<String> list1 = new ArrayList<>();
+    private List<String> prune(final List<String> input, final int bitPos, final boolean mostCommon) {
+        // Returns a sublist of the input list where all bits at bitPos are the same (either 0 or 1 depending on which
+        // occurs more often and whether mostCommon is true or false).
+        final List<String> list0 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<>();
         for (final String line : input) {
             if (line.charAt(bitPos) == '0') {
                 list0.add(line);

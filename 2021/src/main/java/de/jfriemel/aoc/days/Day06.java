@@ -18,20 +18,26 @@ public class Day06 implements Day {
         return Long.toString(simulate(input, 256));
     }
 
-    private long simulate(List<String> input, int days) {
-        List<Integer> initialLanternfish = Arrays.stream(input.get(0).split(",")).map(Integer::parseInt).toList();
-        long[] lanternCounts = new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private long simulate(final List<String> input, final int days) {
+        final List<Integer> initialLanternfish = Arrays.stream(input.get(0)
+                                                       .split(","))
+                                                       .map(Integer::parseInt)
+                                                       .toList();
+        long[] lanternCounts = {0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L};
+
         for (final int lanternfish : initialLanternfish) {
             lanternCounts[lanternfish]++;
         }
+
         for (int i = 0; i < days; i++) {
             lanternCounts = simulateOnce(lanternCounts);
         }
+
         return LongStream.of(lanternCounts).sum();
     }
 
-    private long[] simulateOnce(long[] previous) {
-        long[] next = new long[]{0, 0, 0, 0, 0, 0, previous[0], 0, previous[0]};
+    private long[] simulateOnce(final long[] previous) {
+        final long[] next = {0L, 0L, 0L, 0L, 0L, 0L, previous[0], 0L, previous[0]};
         for (int i = 1; i < previous.length; i++) {
             next[i - 1] += previous[i];
         }

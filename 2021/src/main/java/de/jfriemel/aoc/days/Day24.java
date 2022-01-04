@@ -60,8 +60,8 @@ public class Day24 implements Day {
             if (divZ[i] == 1) {
                 constantStack.add(new int[]{i, addY[i]});
             } else {
-                final int[] prev = constantStack.pollLast();
-                // prev = {index j, addY[j]}.
+                final int[] prev = constantStack.pollLast(); // prev = {index j, addY[j]}.
+                assert prev != null;                         // The stack should never be empty.
                 constraintList.add(new int[]{i, prev[0], prev[1] + addX[i]});
                 // new list element = {index i, index j, addY[j] + addX[i]}.
                 // Note that i > j.
@@ -72,8 +72,8 @@ public class Day24 implements Day {
         for (final int[] constraint : constraintList) {
             // Remember: constraint = {index i, index j, addY[j] + addX[i]}.
             // Any solution must satisfy: digits[i] - digits[j] = addY[j] + addX[i].
-            // To maximize the result, ensure that one of the digits is always 9 (highest possible).
-            // To minimize the result, ensure that one of the digits is always 1 (lowest possible).
+            // To maximize the result, ensure that one of the digits is always 9 (the highest digit possible).
+            // To minimize the result, ensure that one of the digits is always 1 (the lowest digit possible).
             if (constraint[2] > 0) {
                 if (max) {
                     digits[constraint[0]] = 9;

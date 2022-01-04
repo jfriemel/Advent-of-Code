@@ -17,11 +17,11 @@ public class Day13 implements Day {
     }
 
     private String fold(final List<String> input, boolean once) {
-        final String inputStr = String.join("\n", input);
-        final String[] parts = inputStr.split("\n\n");
+        final String inputStr    = String.join("\n", input);
+        final String[] parts     = inputStr.split("\n\n");
         final String[] coordsArr = parts[0].split("\n");
 
-        boolean[][] grid = new boolean[2000][2000];
+        final boolean[][] grid = new boolean[2000][2000];
 
         for (final String coords : coordsArr) {
             final String[] split = coords.split(",");
@@ -31,12 +31,14 @@ public class Day13 implements Day {
         String[] commands = parts[1].split("\n");
         if (once)
             commands = new String[]{commands[0]};
-        int xBound = 2000;
+
+        int xBound = 2000; // A conservative estimate for the initial bounds.
         int yBound = 2000;
 
         for (String command : commands) {
             command = command.substring(11);
 
+            // Folding:
             if (command.charAt(0) == 'x') {
                 final int prevBound = xBound;
                 xBound = Integer.parseInt(command.split("=")[1]);
@@ -64,7 +66,7 @@ public class Day13 implements Day {
                 if (grid[x][y] && once)
                     sum++;
                 else
-                    output.append(grid[x][y] ? '\u2588' : ' ');
+                    output.append(grid[x][y] ? '\u2588' : ' ');  // \u2588 is more visible than #.
             }
         }
 

@@ -23,14 +23,14 @@ public class Day15 implements Day {
         final int[][] grid = getGrid(input, factor);
         final Graph15 G = new Graph15();
 
-        // Add each value in the grid as a node to the graph
+        // Add each value in the grid as a node to the graph.
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 G.addVertex(i  + "," + j, grid[i][j]);
             }
         }
 
-        // Add edges from each node to its four neighbors
+        // Add edges from each node to its four neighbors.
         for (int i = 1; i < grid.length - 1; i++) {
             for (int j = 1; j < grid[i].length - 1; j++) {
                 G.addEdge(i + "," + j, (i-1) + "," + j);
@@ -49,22 +49,22 @@ public class Day15 implements Day {
 
         while (!nodeStack.isEmpty()) {
             Vertex15 v = nodeStack.pollLast();
-            for (Vertex15 w : G.getAdjacencies(v)) {
-                if (pathLengthMap.getOrDefault(w, INFINITY) > pathLengthMap.get(v) + w.getCost()) {
-                    // If the path from v to w is better than all previous paths to w, choose the new path
-                    pathLengthMap.put(w, pathLengthMap.get(v) + w.getCost());
+            for (final Vertex15 w : G.getAdjacencies(v)) {
+                if (pathLengthMap.getOrDefault(w, INFINITY) > pathLengthMap.get(v) + w.cost()) {
+                    // If the path from v to w is better than all previous paths to w, choose the new path.
+                    pathLengthMap.put(w, pathLengthMap.get(v) + w.cost());
                     nodeStack.push(w);
                 }
             }
         }
 
-        // The destination is in the bottom left corner (not including the INFINITY borders)
+        // The destination is in the bottom left corner (not including the INFINITY borders).
         return pathLengthMap.get(G.getVertex((grid.length - 2) + "," + (grid.length - 2)));
     }
 
     private int[][] getGrid(final List<String> input, final int factor) {
         final List<char[]> inputGrid = input.stream().map(String::toCharArray).toList();
-        // Add borders with value INFINITY to all four sides to avoid annoying edge cases
+        // Add borders with value INFINITY to all four sides to avoid annoying edge cases.
         final int[][] grid = new int[inputGrid.size() * factor + 2][inputGrid.get(0).length * factor + 2];
         for (final int[] row : grid) {
             Arrays.fill(row, INFINITY);
@@ -119,30 +119,4 @@ class Graph15 {
     }
 }
 
-class Vertex15 {
-    private final String label;
-    private final int cost;
-
-    Vertex15(final String label, final int cost) {
-        this.label = label;
-        this.cost = cost;
-    }
-
-    int getCost() {
-        return cost;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.label.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || this.getClass() != obj.getClass())
-            return false;
-        return this.label.equals(((Vertex15) obj).label);
-    }
-}
+record Vertex15(String label, int cost) {}

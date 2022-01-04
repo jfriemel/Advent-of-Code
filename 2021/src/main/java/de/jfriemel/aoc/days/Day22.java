@@ -6,25 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class Cuboid {
+record Cuboid(long minX, long maxX, long minY, long maxY, long minZ, long maxZ) {
     // Data structure for a cuboid containing cubes of the reactor core.
-
-    // 3d intervals of the cuboid:
-    long minX;
-    long maxX;
-    long minY;
-    long maxY;
-    long minZ;
-    long maxZ;
-
-    Cuboid(final long minX, final long maxX, final long minY, final long maxY, final long minZ, final long maxZ) {
-        this.minX = minX;
-        this.maxX = maxX;
-        this.minY = minY;
-        this.maxY = maxY;
-        this.minZ = minZ;
-        this.maxZ = maxZ;
-    }
 
     long getSize() {
         // Calculate the size of the cuboid, i.e. the number of cubes contained in the cuboid.

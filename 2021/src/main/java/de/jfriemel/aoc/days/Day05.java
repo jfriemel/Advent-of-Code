@@ -18,18 +18,23 @@ public class Day05 implements Day {
         return Integer.toString(findOverlaps(input, true));
     }
 
-    private int findOverlaps(List<String> input, boolean considerDiags) {
-        List<int[][]> coordList = parseInput(input);
-        HashMap<String, Integer> overlapCounts = new HashMap<>();
-        for (int[][] coords : coordList) {
-            int minX = Math.min(coords[0][0], coords[1][0]);
-            int minY = Math.min(coords[0][1], coords[1][1]);
-            int maxX = Math.max(coords[0][0], coords[1][0]);
-            int maxY = Math.max(coords[0][1], coords[1][1]);
-            if (coords[0][0] == coords[1][0] || coords[0][1] == coords[1][1]) {
+    private int findOverlaps(final List<String> input, final boolean considerDiags) {
+        final List<int[][]> coordList = parseInput(input);
+        final HashMap<String, Integer> overlapCounts = new HashMap<>();
+        // The map keys are strings of the form "x,y" where x and y are the coordinates on the corresponding axes.
+
+        for (final int[][] coords : coordList) {
+            // Only check the coordinates that are actually on the vent:
+            final int minX = Math.min(coords[0][0], coords[1][0]);
+            final int minY = Math.min(coords[0][1], coords[1][1]);
+            final int maxX = Math.max(coords[0][0], coords[1][0]);
+            final int maxY = Math.max(coords[0][1], coords[1][1]);
+
+            if (minX == maxX || minY == maxY) {
+                // If the value on one of the axes is constant, the vent line is horizontal or vertical, not diagonal.
                 for (int i = minX; i <= maxX; i++) {
                     for (int j = minY; j <= maxY; j++) {
-                        String key = i + "," + j;
+                        final String key = i + "," + j;
                         if (overlapCounts.containsKey(key)) {
                             overlapCounts.put(key, overlapCounts.get(key) + 1);
                         } else {
@@ -38,10 +43,10 @@ public class Day05 implements Day {
                     }
                 }
             } else if (considerDiags) {
-                boolean ascX = coords[0][0] < coords[1][0];
-                boolean ascY = coords[0][1] < coords[1][1];
+                final boolean ascX = coords[0][0] < coords[1][0]; // True if the x coordinates are ascending.
+                final boolean ascY = coords[0][1] < coords[1][1]; // True if the y coordinates are ascending.
                 for (int i = 0; i + minX <= maxX; i++) {
-                    String key = (coords[0][0] + (ascX ? i : -i)) + "," + (coords[0][1] + (ascY ? i : -i));
+                    final String key = (coords[0][0] + (ascX ? i : -i)) + "," + (coords[0][1] + (ascY ? i : -i));
                     if (overlapCounts.containsKey(key)) {
                         overlapCounts.put(key, overlapCounts.get(key) + 1);
                     } else {
@@ -51,7 +56,7 @@ public class Day05 implements Day {
             }
         }
         int result = 0;
-        for (String key : overlapCounts.keySet()) {
+        for (final String key : overlapCounts.keySet()) {
             if (overlapCounts.get(key) > 1) {
                 result++;
             }
@@ -59,13 +64,20 @@ public class Day05 implements Day {
         return result;
     }
 
-    private List<int[][]> parseInput(List<String> input) {
-        List<int[][]> coordList = new ArrayList<>();
-        for (String line : input) {
-            int[][] coords = new int[2][2];
-            String[] parts = line.split(" -> ");
-            String[] left = parts[0].split(",");
-            String[] right = parts[1].split(",");
+    private List<int[][]> parseInput(final List<String> input) {
+        final List<int[][]> coordList = new ArrayList<>();
+        // Each entry is a 2x2 array with the following layout:
+        //   [0][_]: Starting point of the line.
+        //   [1][_]: End point of the line.
+        //   [_][0]: x coordinate of the current line point.
+        //   [_][1]: y coordinate of the current line point.
+
+        for (final String line : input) {
+            final int[][] coords = new int[2][2];
+            final String[] parts = line.split(" -> ");
+            final String[] left  = parts[0].split(",");
+            final String[] right = parts[1].split(",");
+
             coords[0][0] = Integer.parseInt(left[0]);
             coords[0][1] = Integer.parseInt(left[1]);
             coords[1][0] = Integer.parseInt(right[0]);
