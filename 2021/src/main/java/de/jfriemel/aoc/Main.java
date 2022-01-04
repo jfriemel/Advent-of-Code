@@ -15,45 +15,51 @@ public class Main {
     private static final Map<Integer, Day> DAYS = new HashMap<>();
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.err.println("Two arguments required: [day] [part].");
-        }
+        final int day  = args.length >= 1 ? Integer.parseInt(args[0]) : 0;
+        final int part = args.length >= 2 ? Integer.parseInt(args[1]) : 0;
 
-        int day = Integer.parseInt(args[0]);
-        int part = Integer.parseInt(args[1]);
-
-        List<String> input = loadInput(day);
         fillDaysMap();
 
-        String result;
-        String outputString = "Advent of Code 2021, Day " + day + ", Part";
-        if (part == 1) {
-            outputString = outputString + " 1\n";
-            result = DAYS.get(day).part1(input);
-        } else if (part == 2) {
-            outputString = outputString + " 2\n";
-            result = DAYS.get(day).part2(input);
+        if (day >= 1 && day <= 25) {
+            System.out.println(generateOutputText(day, part));
         } else {
-            outputString = outputString + "s 1 and 2\n";
-            result = "Part 1: " + DAYS.get(day).part1(input) + "\nPart 2: " + DAYS.get(day).part2(input);
+            for (int d = 1; d <= 25; d++) {
+                System.out.println(generateOutputText(d, part) + '\n');
+            }
         }
-
-        System.out.println(outputString);
-        System.out.println(result);
     }
 
-    private static List<String> loadInput(int day) {
-        String dayString = String.valueOf(day);
-        if (day < 10) {
-            dayString = '0' + dayString;
+    private static String generateOutputText(final int day, final int part) {
+        final List<String> input = loadInput(day);
+        final StringBuilder outputBuilder = new StringBuilder();
+        outputBuilder.append("Advent of Code 2021, Day ")
+                     .append(day)
+                     .append(", Part");
+        if (part == 1) {
+            outputBuilder.append(" 1\n")
+                         .append(DAYS.get(day).part1(input));
+        } else if (part == 2) {
+            outputBuilder.append(" 2\n").append(DAYS.get(day).part2(input));
+        } else {
+            outputBuilder.append("s 1 and 2\n")
+                         .append("Part 1: ")
+                         .append(DAYS.get(day).part1(input))
+                         .append("\nPart 2: ")
+                         .append(DAYS.get(day).part2(input));
         }
+        return outputBuilder.toString();
+    }
 
-        List<String> input;
-        InputStream inputStream = Main.class.getResourceAsStream("/input" + dayString + ".txt");
+    private static List<String> loadInput(final int day) {
+        final String dayString = day < 10 ? '0' + Integer.toString(day) : Integer.toString(day);
+
+        final List<String> input;
+        final InputStream inputStream = Main.class.getResourceAsStream("/input" + dayString + ".txt");
         if (inputStream != null) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             input = bufferedReader.lines().toList();
         } else {
+            System.err.println("Input file 'input" + dayString + ".txt' not found. Proceeding with empty input.");
             input = new ArrayList<>();
         }
 
