@@ -3,15 +3,15 @@
 My personal puzzle solutions for [Advent of Code](https://adventofcode.com/).
 
 | Year | Language | Stars |
-| ---- | -------- | ----- |
-| 2022 | Python   | 0     |
+|------|----------|-------|
+| 2022 | Python   | 10    |
 | 2021 | Java     | 50    |
 | 2020 | Haskell  | 44    |
 
 
 ## Running 2022 Solutions
 
-TODO
+In 2022, I am using Python 3.11. To run my solutions, create an `input` directory next to the solutions directory and insert your input files with file names `inputDD.txt`, where `DD` is the day of the month (e.g. `input04.txt` for day 4). Then you can run the day's Python file from the `solutions` folder. For example, for day 4 you would run `python solutions/day04.py`.
 
 
 ## Running 2021 Solutions
