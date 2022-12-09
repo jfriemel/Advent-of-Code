@@ -42,31 +42,21 @@ def part_b(puzzle_input: str) -> str:
     for (i, j) in [(i, j) for i in range(len(tree_grid)) for j in range(len(tree_grid[0]))]:
         scenic_score = 1
 
-        # Very repetitive code, but it works, so ...
-        trees_visible = 0
-        for dist in range(1, len(tree_grid[0]) - i):
-            trees_visible += 1
-            if tree_grid[i][j] <= tree_grid[i + dist][j]:
-                break
-        scenic_score *= trees_visible
-        trees_visible = 0
-        for dist in range(- 1, -i - 1, -1):
-            trees_visible += 1
-            if tree_grid[i][j] <= tree_grid[i + dist][j]:
-                break
-        scenic_score *= trees_visible
-        trees_visible = 0
-        for dist in range(1, len(tree_grid) - j):
-            trees_visible += 1
-            if tree_grid[i][j] <= tree_grid[i][j + dist]:
-                break
-        scenic_score *= trees_visible
-        trees_visible = 0
-        for dist in range(- 1, -j - 1, -1):
-            trees_visible += 1
-            if tree_grid[i][j] <= tree_grid[i][j + dist]:
-                break
-        scenic_score *= trees_visible
+        # Walk in all four directions, check trees
+        for di, dj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            new_i = i
+            new_j = j
+            trees_visible = 0
+            while True:
+                new_i = new_i + di
+                new_j = new_j + dj
+                if new_i not in range(len(tree_grid)) or new_j not in range(len(tree_grid[0])):
+                    break
+                trees_visible += 1
+                if tree_grid[i][j] <= tree_grid[new_i][new_j]:
+                    break
+            scenic_score *= trees_visible
+
         if scenic_score > max_scenic_score:
             max_scenic_score = scenic_score
 
