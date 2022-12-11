@@ -1,11 +1,6 @@
 from solutions.day10 import part_a, part_b
 
 
-test_input_1 = '''noop
-addx 3
-addx -5'''
-
-
 test_input = '''addx 15
 addx -11
 addx 6
