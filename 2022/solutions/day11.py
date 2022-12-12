@@ -35,7 +35,10 @@ def get_monkey_business(monkeys: list[Monkey], num_rounds: int, worry_divisor: i
             monkey.inspections += len(monkey.items)
             while len(monkey.items) > 0:
                 old = monkey.items.pop()  # old is used in monkey.operation
-                new = (eval(monkey.operation) // worry_divisor) % lcm
+                if worry_divisor == 1:
+                    new = eval(monkey.operation) % lcm
+                else:
+                    new = eval(monkey.operation) // worry_divisor
                 if new % monkey.divisor == 0:
                     monkeys[monkey.recipients[0]].items.append(new)
                 else:
