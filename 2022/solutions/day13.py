@@ -1,3 +1,4 @@
+import ast
 import os
 from functools import cmp_to_key
 
@@ -18,7 +19,7 @@ def compare(left: list | int, right: list | int) -> int:
 
 
 def part_a(puzzle_input: str) -> str:
-    pairs = list(map(lambda s: tuple(map(eval, s.split('\n'))), puzzle_input.strip().split('\n\n')))
+    pairs = list(map(lambda s: tuple(map(ast.literal_eval, s.split('\n'))), puzzle_input.strip().split('\n\n')))
     result = 0
     for idx, (left, right) in enumerate(pairs, 1):
         if compare(left, right) < 0:
@@ -27,7 +28,7 @@ def part_a(puzzle_input: str) -> str:
 
 
 def part_b(puzzle_input: str) -> str:
-    packets = list(map(eval, filter(lambda s: len(s) > 0, puzzle_input.strip().split('\n'))))
+    packets = list(map(ast.literal_eval, filter(lambda s: len(s) > 0, puzzle_input.strip().split('\n'))))
     packets.append([[2]])
     packets.append([[6]])
     packets = sorted(packets, key=cmp_to_key(compare))  # sort using custom compare function
