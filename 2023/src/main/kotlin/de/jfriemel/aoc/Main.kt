@@ -1,21 +1,21 @@
 package de.jfriemel.aoc
 
-import de.jfriemel.aoc.days.Day01
+import de.jfriemel.aoc.days.*
 import java.io.File
 
-val dayArray: Array<Day> = arrayOf(Day01())
+val dayArray: Array<Day> = arrayOf(Day01(), Day02())
 
 fun main(args: Array<String>) {
     println("Advent of Code 2023")
+    println("=".repeat(32))
     if (args.isNotEmpty()) {
         runDay(args[0].toInt())
     } else {
-        (1..1).forEach { day -> runDay(day) }
+        (1..2).forEach { day -> runDay(day) }
     }
 }
 
 private fun runDay(day: Int) {
-    println("=".repeat(32))
     println("Day $day")
     val input = File(
         ClassLoader

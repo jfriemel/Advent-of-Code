@@ -1,7 +1,7 @@
 package de.jfriemel.aoc.days
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class Day01Test {
 
@@ -25,12 +25,12 @@ class Day01Test {
     @Test
     fun testPart1() {
         val result = Day01().part1(input1)
-        assertEquals("142", result)
+        Assertions.assertEquals("142", result)
     }
 
     @Test
     fun testPart2() {
         val result = Day01().part2(input2)
-        assertEquals("281", result)
+        Assertions.assertEquals("281", result)
     }
 }
