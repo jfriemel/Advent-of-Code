@@ -3,7 +3,7 @@ package de.jfriemel.aoc.days
 import de.jfriemel.aoc.Day
 import kotlin.math.max
 
-class Day02 : Day {
+object Day02 : Day {
     override fun part1(input: List<String>): String {
         val bagContains = mapOf("red" to 12, "green" to 13, "blue" to 14)
         var sum = 0

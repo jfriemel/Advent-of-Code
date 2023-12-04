@@ -2,7 +2,7 @@ package de.jfriemel.aoc.days
 
 import de.jfriemel.aoc.Day
 
-class Day03 : Day {
+object Day03 : Day {
     override fun part1(input: List<String>): String {
         val chars = input.map { str -> str.toCharArray() }.toTypedArray()
         val nonSymbols = ".0123456789".toCharArray()

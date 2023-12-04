@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class Day01Test {
-
     private val input1 = """
         1abc2
         pqr3stu8vwx
@@ -24,13 +23,13 @@ class Day01Test {
 
     @Test
     fun testPart1() {
-        val result = Day01().part1(input1)
+        val result = Day01.part1(input1)
         Assertions.assertEquals("142", result)
     }
 
     @Test
     fun testPart2() {
-        val result = Day01().part2(input2)
+        val result = Day01.part2(input2)
         Assertions.assertEquals("281", result)
     }
 }

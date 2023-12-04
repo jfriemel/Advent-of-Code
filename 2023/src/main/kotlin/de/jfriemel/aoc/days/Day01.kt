@@ -2,7 +2,7 @@ package de.jfriemel.aoc.days
 
 import de.jfriemel.aoc.Day
 
-class Day01 : Day {
+object Day01 : Day {
     override fun part1(input: List<String>): String {
         var sum = 0
         input.forEach { entry ->

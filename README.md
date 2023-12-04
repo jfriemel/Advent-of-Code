@@ -4,7 +4,7 @@ My personal puzzle solutions for [Advent of Code](https://adventofcode.com/).
 
 | Year | Language | Stars |
 |------|----------|-------|
-| 2023 | Kotlin   | 6     |
+| 2023 | Kotlin   | 8     |
 | 2022 | Python   | 35    |
 | 2021 | Java     | 50    |
 | 2020 | Haskell  | 44    |

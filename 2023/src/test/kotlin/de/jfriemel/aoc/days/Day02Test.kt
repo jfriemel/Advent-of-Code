@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class Day02Test {
-
     private val input = """
         Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
         Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
@@ -15,13 +14,13 @@ class Day02Test {
 
     @Test
     fun testPart1() {
-        val result = Day02().part1(input)
+        val result = Day02.part1(input)
         Assertions.assertEquals("8", result)
     }
 
     @Test
     fun testPart2() {
-        val result = Day02().part2(input)
+        val result = Day02.part2(input)
         Assertions.assertEquals("2286", result)
     }
 }
