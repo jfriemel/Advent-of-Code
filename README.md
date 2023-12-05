@@ -1,10 +1,10 @@
 # Advent-of-Code
 
-My personal puzzle solutions for [Advent of Code](https://adventofcode.com/).
+My personal solutions for [Advent of Code](https://adventofcode.com/), an Advent calendar with programming puzzles.
 
 | Year | Language | Stars |
 |------|----------|-------|
-| 2023 | Kotlin   | 8     |
+| 2023 | Kotlin   | 10    |
 | 2022 | Python   | 35    |
 | 2021 | Java     | 50    |
 | 2020 | Haskell  | 44    |
