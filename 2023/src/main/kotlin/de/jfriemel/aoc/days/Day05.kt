@@ -70,6 +70,6 @@ object Day05 : Day {
         }
 
         result.addAll(remaining)
-        return result.filter { range -> !range.isEmpty() }
+        return result
     }
 }
