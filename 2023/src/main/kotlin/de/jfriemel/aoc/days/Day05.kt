@@ -38,11 +38,9 @@ object Day05 : Day {
             }
         }
 
-        var currentRanges = seedRanges
-        mapRanges.indices.forEach { level ->
-            currentRanges = getNextRanges(currentRanges, level, mapRanges)
-        }
-        return currentRanges.minOf { range -> range.first }.toString()
+        return mapRanges.indices.fold(seedRanges) { currentRanges, level ->
+            getNextRanges(currentRanges, level, mapRanges)
+        }.minOf { range -> range.first }.toString()
     }
 
     private fun getNextRanges(
@@ -50,10 +48,9 @@ object Day05 : Day {
         level: Int,
         mapRanges: Array<List<Triple<Long, Long, Long>>>,
     ): List<LongRange> {
-        var remaining = seedRanges
         val result = mutableListOf<LongRange>()
 
-        mapRanges[level].forEach { (destStart, seedStart, length) ->
+        val notMapped = mapRanges[level].fold(seedRanges) { remaining, (destStart, seedStart, length) ->
             val nextRemaining = mutableListOf<LongRange>()
             val destOffset = destStart - seedStart
             remaining.forEach { seedRange ->
@@ -66,10 +63,10 @@ object Day05 : Day {
                     nextRemaining.add((intersect.last + 1)..seedRange.last) // Right of intersection
                 }
             }
-            remaining = nextRemaining.filter { range -> !range.isEmpty() }
+            nextRemaining.filter { range -> !range.isEmpty() }
         }
 
-        result.addAll(remaining)
+        result.addAll(notMapped)
         return result
     }
 }

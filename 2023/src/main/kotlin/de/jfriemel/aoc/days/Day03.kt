@@ -11,10 +11,9 @@ object Day03 : Day {
             locations.addLast(Regex("\\d+").findAll(line).toList())
         }
 
-        var sum = 0
-        locations.forEachIndexed { digitY, matchResultLists ->
-            matchResultLists.forEach { matchResult ->
-                val valid = matchResult.range.any { digitX ->
+        return locations.foldIndexed(0) { digitY, acc, matchResultLists ->
+            acc + matchResultLists.filter { matchResult ->
+                matchResult.range.any { digitX ->
                     arrayOf(
                         Pair(-1, -1),
                         Pair(-1, 0),
@@ -29,12 +28,8 @@ object Day03 : Day {
                             .getOrElse(digitX + offsetX) { '.' } !in nonSymbols
                     }
                 }
-                if (valid) {
-                    sum += matchResult.value.toInt()
-                }
-            }
-        }
-        return sum.toString()
+            }.sumOf { matchResult -> matchResult.value.toInt() }
+        }.toString()
     }
 
     override fun part2(input: List<String>): String {
@@ -45,12 +40,10 @@ object Day03 : Day {
             }
         }
 
-        var sum = 0
-        input.forEachIndexed { gearY, line ->
-            Regex("\\*").findAll(line).map { match -> match.range.first }.forEach { gearX ->
-                val neighbors: List<Int> = mutableListOf()
-                numLocations.forEach { (numY, numMatch) ->
-                    val valid = arrayOf(
+        return input.foldIndexed(0) { gearY, acc, line ->
+            acc + Regex("\\*").findAll(line).map { match -> match.range.first }.map { gearX ->
+                numLocations.filter { (numY, numMatch) ->
+                    arrayOf(
                         Pair(-1, -1),
                         Pair(-1, 0),
                         Pair(-1, 1),
@@ -59,18 +52,10 @@ object Day03 : Day {
                         Pair(1, -1),
                         Pair(1, 0),
                         Pair(1, 1),
-                    ).any { (offsetX, offsetY) ->
-                        gearX + offsetX in numMatch.range && gearY + offsetY == numY
-                    }
-                    if (valid) {
-                        neighbors.addLast(numMatch.value.toInt())
-                    }
-                }
-                if (neighbors.size == 2) {
-                    sum += neighbors[0] * neighbors[1]
-                }
-            }
-        }
-        return sum.toString()
+                    ).any { (offsetX, offsetY) -> gearX + offsetX in numMatch.range && gearY + offsetY == numY }
+                }.map { (_, numMatch) -> numMatch.value.toInt() }
+            }.filter { neighbors -> neighbors.size == 2 }
+                .sumOf { neighbors -> neighbors[0] * neighbors[1] }
+        }.toString()
     }
 }

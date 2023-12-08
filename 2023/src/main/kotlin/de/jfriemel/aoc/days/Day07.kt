@@ -1,7 +1,6 @@
 package de.jfriemel.aoc.days
 
 import de.jfriemel.aoc.Day
-import kotlin.math.max
 
 object Day07 : Day {
     override fun part1(input: List<String>) = getTotalWinnings(input, false)
@@ -13,28 +12,22 @@ object Day07 : Day {
         val comparator = Comparator<Pair<String, Int>> { handBid1, handBid2 ->
             val hand1 = handBid1.first
             val hand2 = handBid2.first
-            if (getBestHandType(hand1, part2) != getBestHandType(hand2, part2)) {
-                return@Comparator getBestHandType(hand1, part2) - getBestHandType(hand2, part2)
+            if (getHandType(hand1, part2) != getHandType(hand2, part2)) {
+                return@Comparator getHandType(hand1, part2) - getHandType(hand2, part2)
             }
             return@Comparator getHandValue(hand1, part2) - getHandValue(hand2, part2)
         }
-        val sorted = handsAndBids.sortedWith(comparator)
-        return sorted.withIndex().sumOf {
+        return handsAndBids.sortedWith(comparator).withIndex().sumOf {
                 indexedValue -> (indexedValue.index + 1) * (indexedValue.value.second)
         }.toString()
     }
 
-    private fun getBestHandType(hand: String, part2: Boolean): Int {
-        var best = getHandType(hand)
+    private fun getHandType(hand: String, part2: Boolean): Int {
         if (part2 && 'J' in hand) {
-            "23456789TQKA".forEach { replacement ->
-                best = max(best, getBestHandType(hand.replaceFirst('J', replacement), true))
+            return "23456789TQKA".maxOf { replacement ->
+                getHandType(hand.replaceFirst('J', replacement), true)
             }
         }
-        return best
-    }
-
-    private fun getHandType(hand: String): Int {
         val occurrences = mutableMapOf<Char, Int>()
         hand.forEach { card ->
             occurrences[card] = occurrences.getOrDefault(card, 0) + 1
@@ -65,6 +58,6 @@ object Day07 : Day {
                 'T' -> 10
                 else -> card.digitToInt()
             }
-        }.fold(0) { acc, i -> 15 * acc + i }
+        }.fold(0) { acc, cardVal -> 15 * acc + cardVal }
     }
 }

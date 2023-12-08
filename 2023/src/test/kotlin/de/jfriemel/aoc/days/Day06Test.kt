@@ -7,7 +7,7 @@ class Day06Test {
     private val input = """
         Time:      7  15   30
         Distance:  9  40  200
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     @Test
     fun testPart1() {

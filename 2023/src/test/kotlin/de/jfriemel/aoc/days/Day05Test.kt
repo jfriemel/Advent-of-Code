@@ -38,7 +38,7 @@ class Day05Test {
         humidity-to-location map:
         60 56 37
         56 93 4
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     @Test
     fun testPart1() {

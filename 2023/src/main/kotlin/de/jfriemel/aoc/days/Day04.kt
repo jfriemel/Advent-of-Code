@@ -6,12 +6,10 @@ import kotlin.math.pow
 
 object Day04 : Day {
     override fun part1(input: List<String>): String {
-        var sum = 0
-        input.forEach { card ->
+        return input.fold(0) { acc, card ->
             val (winning, mine) = getCardNumbers(card)
-            sum += floor(2.0.pow(mine.intersect(winning).size - 1)).toInt()
-        }
-        return sum.toString()
+            acc + floor(2.0.pow(mine.intersect(winning).size - 1)).toInt()
+        }.toString()
     }
 
     override fun part2(input: List<String>): String {

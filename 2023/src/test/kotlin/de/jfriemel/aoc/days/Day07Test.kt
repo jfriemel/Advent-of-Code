@@ -10,7 +10,7 @@ class Day07Test {
         KK677 28
         KTJJT 220
         QQQJA 483
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     @Test
     fun testPart1() {

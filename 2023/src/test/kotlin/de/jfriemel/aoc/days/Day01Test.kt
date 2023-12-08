@@ -9,7 +9,7 @@ class Day01Test {
         pqr3stu8vwx
         a1b2c3d4e5f
         treb7uchet
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     private val input2 = """
         two1nine
@@ -19,7 +19,7 @@ class Day01Test {
         4nineeightseven2
         zoneight234
         7pqrstsixteen
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     @Test
     fun testPart1() {

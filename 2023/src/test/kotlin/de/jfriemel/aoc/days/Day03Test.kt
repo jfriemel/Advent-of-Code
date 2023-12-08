@@ -15,7 +15,7 @@ class Day03Test {
         ......755.
         ...${'$'}.*....
         .664.598..
-    """.trimIndent().split("\n")
+    """.trimIndent().lines()
 
     @Test
     fun testPart1() {

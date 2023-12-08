@@ -4,17 +4,14 @@ import de.jfriemel.aoc.Day
 
 object Day01 : Day {
     override fun part1(input: List<String>): String {
-        var sum = 0
-        input.forEach { entry ->
+        return input.fold(0) { acc, entry ->
             val digits = entry.filter { it.isDigit() }
-            sum += "${digits.first()}${digits.last()}".toInt()
-        }
-        return sum.toString()
+            acc + "${digits.first()}${digits.last()}".toInt()
+        }.toString()
     }
 
     override fun part2(input: List<String>): String {
-        var sum = 0
-        input.forEach { entry ->
+        return input.fold(0) { acc, entry ->
             val fullEntry = entry
                 .replace("one", "one1one")
                 .replace("two", "two2two")
@@ -26,8 +23,7 @@ object Day01 : Day {
                 .replace("eight", "eight8eight")
                 .replace("nine", "nine9nine")
             val digits = fullEntry.filter { it.isDigit() }
-            sum += "${digits.first()}${digits.last()}".toInt()
-        }
-        return sum.toString()
+            acc + "${digits.first()}${digits.last()}".toInt()
+        }.toString()
     }
 }
