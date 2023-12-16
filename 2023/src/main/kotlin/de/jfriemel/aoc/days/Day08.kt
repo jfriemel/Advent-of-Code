@@ -14,15 +14,7 @@ object Day08 : Day {
             numSteps(node, movements, desertMap, true)
         }.reduce { a, b ->
             val larger = if (a > b) a else b
-            val limit = a * b
-            var lcm = larger
-            while (lcm <= limit) {
-                if (lcm.mod(a) == 0L && lcm.mod(b) == 0L) {
-                    return@reduce lcm
-                }
-                lcm += larger
-            }
-            lcm
+            (larger..(a * b) step larger).first { candidate -> candidate.mod(a) == 0L && candidate.mod(b) == 0L }
         }.toString()
     }
 
@@ -35,20 +27,16 @@ object Day08 : Day {
     }
 
     private fun numSteps(
-        node: String, movements: BooleanArray,
+        startNode: String,
+        movements: BooleanArray,
         desertMap: Map<String, Pair<String, String>>,
         part2: Boolean,
     ): Long {
-        var steps = 0L
-        var current = node
-        while ((!part2 && current != "ZZZ") || (part2 && !current.endsWith("Z"))) {
-            current = if (movements[(steps.mod(movements.size))]) {
-                desertMap[current]!!.second
-            } else {
-                desertMap[current]!!.first
-            }
-            steps += 1
-        }
-        return steps
+        return generateSequence(Pair(startNode, 0L)) { (node, steps) ->
+            Pair(
+                if (movements[(steps.mod(movements.size))]) desertMap[node]!!.second else desertMap[node]!!.first,
+                steps + 1,
+            )
+        }.first { (node, _) -> (!part2 && node == "ZZZ") || (part2 && node.endsWith("Z")) }.second
     }
 }
