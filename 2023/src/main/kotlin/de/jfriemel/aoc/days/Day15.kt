@@ -7,20 +7,17 @@ object Day15 : Day {
 
     override fun part2(input: List<String>): String {
         val boxes = Array<MutableList<Pair<String, Int>>>(256) { mutableListOf() }
-        val labels = mutableSetOf<String>()
         input[0].split(",").forEach { entry ->
             val label = Regex("[a-z]+").find(entry)!!.value
-            labels.add(label)
             val hash = hash(label)
             if ('-' in entry) {
                 boxes[hash].removeIf { (boxLabel, _) -> boxLabel == label }
             } else {
-                val focalLength = Regex("\\d").find(entry)!!.value.toInt()
                 val indexInBox = boxes[hash].indexOfFirst { (boxLabel, _) -> boxLabel == label }
                 if (indexInBox < 0) {
-                    boxes[hash].addLast(Pair(label, focalLength))
+                    boxes[hash].addLast(Pair(label, entry.last().digitToInt()))
                 } else {
-                    boxes[hash][indexInBox] = Pair(label, focalLength)
+                    boxes[hash][indexInBox] = Pair(label, entry.last().digitToInt())
                 }
             }
         }
