@@ -43,7 +43,7 @@ object Day13 : Day {
     private fun smudges(grid: Array<CharArray>): List<Array<CharArray>> {
         return grid.indices.flatMap { i ->
             grid[i].indices.map { j ->
-                val sGrid = grid.map { it.clone() }.toTypedArray()
+                val sGrid = grid.map { line -> line.clone() }.toTypedArray()
                 sGrid[i][j] = if (grid[i][j] == '.') '#' else '.'
                 sGrid
             }
