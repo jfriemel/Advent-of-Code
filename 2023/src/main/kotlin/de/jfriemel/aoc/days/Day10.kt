@@ -4,9 +4,7 @@ import de.jfriemel.aoc.Day
 import kotlin.math.abs
 
 object Day10 : Day {
-    override fun part1(input: List<String>): String {
-        return (traverse(input).size / 2).toString()
-    }
+    override fun part1(input: List<String>) = (traverse(input).size / 2).toString()
 
     override fun part2(input: List<String>): String {
         val path = traverse(input)
