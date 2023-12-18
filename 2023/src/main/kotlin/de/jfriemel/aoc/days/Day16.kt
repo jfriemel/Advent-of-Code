@@ -28,7 +28,9 @@ object Day16 : Day {
             if (next in cache) {
                 continue
             }
-            cache.add(next)
+            if (next.first != startCoords) {
+                cache.add(next)
+            }
             val (y, x) = next.first
             val (dy, dx) = next.second
             if (y + dy !in grid.indices || x + dx !in grid[0].indices) {
@@ -81,9 +83,6 @@ object Day16 : Day {
             }
         }
 
-        return cache.map { (coords, _) -> coords }
-            .filter { (y, x) -> y in grid.indices && x in grid[0].indices }
-            .toSet()
-            .size
+        return cache.map { (coords, _) -> coords }.toSet().size
     }
 }

@@ -3,10 +3,7 @@ package de.jfriemel.aoc
 import de.jfriemel.aoc.days.*
 import java.io.File
 
-val dayArray: Array<Day> =
-    arrayOf(
-        Day01, Day02, Day03, Day04, Day05, Day06, Day07, Day08, Day09, Day10, Day11, Day12, Day13, Day14, Day15, Day16
-    )
+val dayArray: Array<Day> = arrayOf(Day01, Day02, Day03, Day04, Day05, Day06, Day07, Day08, Day09, Day10, Day11, Day12, Day13, Day14, Day15, Day16, Day17)
 
 fun main(args: Array<String>) {
     println("Advent of Code 2023")
@@ -14,7 +11,7 @@ fun main(args: Array<String>) {
     if (args.isNotEmpty()) {
         runDay(args[0].toInt())
     } else {
-        (1..16).forEach { day -> runDay(day) }
+        (1..17).forEach { day -> runDay(day) }
     }
 }
 
