@@ -7,7 +7,7 @@ val dayArray: Array<Day> = arrayOf(
     Day01, Day02, Day03, Day04, Day05,
     Day06, Day07, Day08, Day09, Day10,
     Day11, Day12, Day13, Day14, Day15,
-    Day16, Day17, Day18,
+    Day16, Day17, Day18, Day19,
 )
 
 fun main(args: Array<String>) {
@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     if (args.isNotEmpty()) {
         runDay(args[0].toInt())
     } else {
-        (1..18).forEach { day -> runDay(day) }
+        (1..19).forEach { day -> runDay(day) }
     }
 }
 
